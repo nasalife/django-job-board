@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # my app 
     'job',
-    
+
 ]
 
 MIDDLEWARE = [
