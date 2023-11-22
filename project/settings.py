@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # my app 
-    'job',
+    'job', 'django_bootstrap5'
 
 ]
 

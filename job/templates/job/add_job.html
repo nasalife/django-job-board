@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>{{job}}</h3>
+                        <h3>ADD NEW JOB</h3>
                     </div>
                 </div>
             </div>
@@ -20,66 +20,22 @@
     <div class="job_details_area">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="job_details_header">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/1.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="#"><h4>{{job}}</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> {{job.job_type}} </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descript_wrap white-bg">
-                        <div class="single_wrap">
-                            <h4>Job description</h4>
-                            <p> {{job.description}} </p>
-                        </div>
-                    </div>
+                <div class="col-lg-10 mx-auto">
 
                     <div class="apply_job_form white-bg">
-                        <h4>Apply for the job</h4>
+                        <h4>Post new job</h4>
                         <form  method="POST" enctype ='multipart/form-data' >
                             {% csrf_token %}
 
-                            {% bootstrap_form form %}
+                              {%bootstrap_form form %}
                         
-                            {% bootstrap_button button_type="submit" content="Apply Now" button_class="boxed-btn3 w-100" %}                         
+                            {% bootstrap_button button_type="submit" content="Post Now" button_class="boxed-btn3 w-100" %}                         
 
                         </form>
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="job_sumary">
-                        <div class="summery_header">
-                            <h3>Job Summery</h3>
-                        </div>
-                        <div class="job_content">
-                            <ul>
-                                <li>Published on: <span>{{job.published_at | date:"d M o"}}</span></li>
-                                <li>Vacancy: <span>{{job.vacancy}}</span></li>
-                                <li>Salary: <span>{{job.salary}}</span></li>
-                                <li>Location: <span>California, USA</span></li>
-                                <li>Job Nature: <span> {{job.job_type}}</span></li>
-                            </ul>
-                        </div>
-                    </div>
+
                     <div class="share_wrap d-flex">
                         <span>Share at:</span>
                         <ul>
@@ -123,5 +79,3 @@
         </div>
     </div>
 {%endblock body%}
-
-
