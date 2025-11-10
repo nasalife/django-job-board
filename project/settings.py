@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # my app 
-    'job', 'django_bootstrap5'
+    # my app
+    'job', 'django_bootstrap5', 'surgical_tracker'
 
 ]
 

@@ -1,0 +1,73 @@
+{% extends 'surgical_tracker/base.html' %}
+{% load static %}
+
+{% block title %}Programmes Chirurgicaux - Suivi Chirurgical{% endblock %}
+{% block nav_surgeries %}active{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<a href="{% url 'surgical_tracker:surgery_list' %}" class="tip-bottom">Programmes Chirurgicaux</a>
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+  <div class="span12">
+    <div class="widget-box">
+      <div class="widget-title">
+        <span class="icon"><i class="icon-th-list"></i></span>
+        <h5>Liste des Programmes Chirurgicaux</h5>
+        <div class="buttons">
+          <a href="#" class="btn btn-success"><i class="icon-plus"></i> Nouveau Programme</a>
+        </div>
+      </div>
+      <div class="widget-content nopadding">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Patient</th>
+              <th>Type d'Intervention</th>
+              <th>Chirurgien</th>
+              <th>Date Prévue</th>
+              <th>Salle</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for surgery in surgeries %}
+            <tr>
+              <td>{{ surgery.id }}</td>
+              <td>{{ surgery.patient.full_name }}</td>
+              <td>{{ surgery.procedure_type }}</td>
+              <td>{{ surgery.surgeon.full_name }}</td>
+              <td>{{ surgery.scheduled_date|date:"d/m/Y H:i" }}</td>
+              <td>{{ surgery.operating_room }}</td>
+              <td>
+                <span class="label
+                  {% if surgery.status == 'completed' %}label-success
+                  {% elif surgery.status == 'in_progress' %}label-info
+                  {% elif surgery.status == 'pending' %}label-warning
+                  {% elif surgery.status == 'cancelled' %}label-important
+                  {% endif %}">
+                  {{ surgery.get_status_display }}
+                </span>
+              </td>
+              <td>
+                <a href="#" class="btn btn-mini btn-info"><i class="icon-eye-open"></i> Voir</a>
+                <a href="#" class="btn btn-mini btn-warning"><i class="icon-edit"></i> Modifier</a>
+                <a href="#" class="btn btn-mini btn-danger"><i class="icon-trash"></i> Supprimer</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="8" class="text-center">Aucun programme enregistré</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

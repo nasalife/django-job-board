@@ -1,0 +1,187 @@
+{% extends 'surgical_tracker/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Suivi Chirurgical{% endblock %}
+{% block nav_dashboard %}active{% endblock %}
+
+{% block content %}
+<div class="quick-actions_homepage">
+  <ul class="quick-actions">
+    <li>
+      <a href="{% url 'surgical_tracker:surgery_list' %}">
+        <i class="icon-th-list"></i> Programmes
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'surgical_tracker:patient_list' %}">
+        <i class="icon-user"></i> Patients
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'surgical_tracker:surgeon_list' %}">
+        <i class="icon-briefcase"></i> Chirurgiens
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'surgical_tracker:calendar' %}">
+        <i class="icon-calendar"></i> Calendrier
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="row-fluid">
+  <div class="widget-box">
+    <div class="widget-title">
+      <span class="icon"><i class="icon-signal"></i></span>
+      <h5>Statistiques des Programmes Chirurgicaux</h5>
+    </div>
+    <div class="widget-content">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="alert alert-info">
+            <h4>{{ total_surgeries }}</h4>
+            <p>Total Programmes</p>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="alert alert-success">
+            <h4>{{ completed_surgeries }}</h4>
+            <p>Terminés</p>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="alert alert-warning">
+            <h4>{{ pending_surgeries }}</h4>
+            <p>En Attente</p>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="alert alert-danger">
+            <h4>{{ cancelled_surgeries }}</h4>
+            <p>Annulés</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="row-fluid">
+  <div class="span6">
+    <div class="widget-box">
+      <div class="widget-title">
+        <span class="icon"><i class="icon-calendar"></i></span>
+        <h5>Prochains Programmes</h5>
+      </div>
+      <div class="widget-content nopadding">
+        <ul class="recent-posts">
+          {% for surgery in upcoming_surgeries %}
+          <li>
+            <div class="article-post">
+              <span class="user-info">
+                Patient: {{ surgery.patient.full_name }} |
+                Date: {{ surgery.scheduled_date|date:"d/m/Y H:i" }} |
+                Chirurgien: {{ surgery.surgeon.full_name }}
+              </span>
+              <p><a href="#">{{ surgery.procedure_type }}</a></p>
+            </div>
+          </li>
+          {% empty %}
+          <li><p>Aucun programme à venir</p></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="span6">
+    <div class="widget-box">
+      <div class="widget-title">
+        <span class="icon"><i class="icon-refresh"></i></span>
+        <h5>Activités Récentes</h5>
+      </div>
+      <div class="widget-content nopadding updates">
+        {% for activity in recent_activities %}
+        <div class="new-update clearfix">
+          <i class="icon-ok-sign"></i>
+          <div class="update-done">
+            <a title="" href="#"><strong>{{ activity.title }}</strong></a>
+            <span>{{ activity.description }}</span>
+          </div>
+          <div class="update-date">
+            <span class="update-day">{{ activity.created_at|date:"d" }}</span>
+            {{ activity.created_at|date:"M" }}
+          </div>
+        </div>
+        {% empty %}
+        <div class="new-update clearfix">
+          <p>Aucune activité récente</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="widget-box">
+      <div class="widget-title">
+        <span class="icon"><i class="icon-th"></i></span>
+        <h5>Derniers Programmes Chirurgicaux</h5>
+      </div>
+      <div class="widget-content nopadding">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Type d'Intervention</th>
+              <th>Chirurgien</th>
+              <th>Date Prévue</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for surgery in recent_surgeries %}
+            <tr>
+              <td>{{ surgery.patient.full_name }}</td>
+              <td>{{ surgery.procedure_type }}</td>
+              <td>{{ surgery.surgeon.full_name }}</td>
+              <td>{{ surgery.scheduled_date|date:"d/m/Y H:i" }}</td>
+              <td>
+                <span class="label
+                  {% if surgery.status == 'completed' %}label-success
+                  {% elif surgery.status == 'pending' %}label-warning
+                  {% elif surgery.status == 'cancelled' %}label-important
+                  {% else %}label-info
+                  {% endif %}">
+                  {{ surgery.get_status_display }}
+                </span>
+              </td>
+              <td>
+                <a href="#" class="btn btn-mini btn-info">Voir</a>
+                <a href="#" class="btn btn-mini btn-warning">Modifier</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="text-center">Aucun programme enregistré</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'maruti/js/maruti.dashboard.js' %}"></script>
+{% endblock %}

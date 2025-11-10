@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('jobs/', include('job.urls',namespace='jobs')),
+    path('surgical/', include('surgical_tracker.urls', namespace='surgical_tracker')),
 
 ]
 
