@@ -1,5 +1,13 @@
 from django.contrib import admin
-from .models import Patient, Surgeon, Surgery, MedicalEquipment, SurgeryEquipment, Activity
+from .models import UserProfile, Patient, Surgeon, Surgery, MedicalEquipment, SurgeryEquipment, Activity
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'role', 'phone', 'department', 'created_at']
+    list_filter = ['role', 'department', 'created_at']
+    search_fields = ['user__username', 'user__first_name', 'user__last_name', 'phone']
+    raw_id_fields = ['user']
 
 
 @admin.register(Patient)

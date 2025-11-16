@@ -17,7 +17,7 @@
         <span class="icon"><i class="icon-user"></i></span>
         <h5>Liste des Patients</h5>
         <div class="buttons">
-          <a href="#" class="btn btn-success"><i class="icon-plus"></i> Nouveau Patient</a>
+          <a href="{% url 'surgical_tracker:patient_create' %}" class="btn btn-success"><i class="icon-plus"></i> Nouveau Patient</a>
         </div>
       </div>
       <div class="widget-content nopadding">
@@ -43,8 +43,9 @@
               <td>{{ patient.email }}</td>
               <td><span class="label label-info">{{ patient.blood_group }}</span></td>
               <td>
-                <a href="#" class="btn btn-mini btn-info"><i class="icon-eye-open"></i> Voir</a>
-                <a href="#" class="btn btn-mini btn-warning"><i class="icon-edit"></i> Modifier</a>
+                <a href="{% url 'surgical_tracker:patient_detail' patient.id %}" class="btn btn-mini btn-info"><i class="icon-eye-open"></i> Voir</a>
+                <a href="{% url 'surgical_tracker:patient_update' patient.id %}" class="btn btn-mini btn-warning"><i class="icon-edit"></i> Modifier</a>
+                <a href="{% url 'surgical_tracker:patient_delete' patient.id %}" class="btn btn-mini btn-danger"><i class="icon-trash"></i></a>
               </td>
             </tr>
             {% empty %}

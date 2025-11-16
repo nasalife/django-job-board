@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Suivi Chirurgical</title>
+    <link rel="stylesheet" href="{% static 'maruti/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'maruti/css/maruti-login.css' %}">
+    <link rel="stylesheet" href="{% static 'maruti/css/maruti-style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div id="loginbox">
+            <form method="post" class="form-vertical">
+                {% csrf_token %}
+                <div class="control-group normal_text">
+                    <h3><img src="{% static 'maruti/img/logo.png' %}" alt="Logo" /></h3>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_lg"><i class="icon-user"></i></span>
+                            <input type="text" name="username" placeholder="Nom d'utilisateur" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly"><i class="icon-lock"></i></span>
+                            <input type="password" name="password" placeholder="Mot de passe" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <span class="pull-left"><a href="{% url 'surgical_tracker:register' %}" class="flip-link btn btn-info" id="to-recover">Créer un compte</a></span>
+                    <span class="pull-right"><button type="submit" class="btn btn-success">Connexion</button></span>
+                </div>
+            </form>
+
+            {% if messages %}
+            <div class="alert-messages">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{% static 'maruti/js/jquery.min.js' %}"></script>
+    <script src="{% static 'maruti/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

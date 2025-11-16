@@ -1,0 +1,142 @@
+{% extends 'surgical_tracker/base.html' %}
+
+{% block title %}{{ title }} - Suivi Chirurgical{% endblock %}
+{% block nav_patients %}active{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<a href="{% url 'surgical_tracker:patient_list' %}" class="tip-bottom">Patients</a>
+<a href="#" class="current">{{ title }}</a>
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"><i class="icon-user"></i></span>
+                <h5>{{ title }}</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" class="form-horizontal">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <button class="close" data-dismiss="alert">×</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="control-group">
+                        <label class="control-label">Prénom *</label>
+                        <div class="controls">
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                            <span class="help-inline">{{ form.first_name.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Nom *</label>
+                        <div class="controls">
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                            <span class="help-inline">{{ form.last_name.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Date de naissance *</label>
+                        <div class="controls">
+                            {{ form.date_of_birth }}
+                            {% if form.date_of_birth.errors %}
+                            <span class="help-inline">{{ form.date_of_birth.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Sexe *</label>
+                        <div class="controls">
+                            {{ form.gender }}
+                            {% if form.gender.errors %}
+                            <span class="help-inline">{{ form.gender.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Groupe sanguin *</label>
+                        <div class="controls">
+                            {{ form.blood_group }}
+                            {% if form.blood_group.errors %}
+                            <span class="help-inline">{{ form.blood_group.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Téléphone *</label>
+                        <div class="controls">
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                            <span class="help-inline">{{ form.phone.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Email</label>
+                        <div class="controls">
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <span class="help-inline">{{ form.email.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Adresse *</label>
+                        <div class="controls">
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                            <span class="help-inline">{{ form.address.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Antécédents médicaux</label>
+                        <div class="controls">
+                            {{ form.medical_history }}
+                            {% if form.medical_history.errors %}
+                            <span class="help-inline">{{ form.medical_history.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Allergies</label>
+                        <div class="controls">
+                            {{ form.allergies }}
+                            {% if form.allergies.errors %}
+                            <span class="help-inline">{{ form.allergies.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="icon-ok"></i> Enregistrer</button>
+                        <a href="{% url 'surgical_tracker:patient_list' %}" class="btn"><i class="icon-remove"></i> Annuler</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

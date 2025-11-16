@@ -1,0 +1,91 @@
+{% extends 'surgical_tracker/base.html' %}
+
+{% block title %}{{ title }} - Suivi Chirurgical{% endblock %}
+{% block nav_surgeons %}active{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<a href="{% url 'surgical_tracker:surgeon_list' %}" class="tip-bottom">Chirurgiens</a>
+<a href="#" class="current">{{ title }}</a>
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"><i class="icon-briefcase"></i></span>
+                <h5>{{ title }}</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" class="form-horizontal">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <button class="close" data-dismiss="alert">×</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="control-group">
+                        <label class="control-label">Prénom *</label>
+                        <div class="controls">
+                            {{ form.first_name }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Nom *</label>
+                        <div class="controls">
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Spécialité *</label>
+                        <div class="controls">
+                            {{ form.specialty }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Numéro de licence *</label>
+                        <div class="controls">
+                            {{ form.license_number }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Téléphone *</label>
+                        <div class="controls">
+                            {{ form.phone }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Email *</label>
+                        <div class="controls">
+                            {{ form.email }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Années d'expérience</label>
+                        <div class="controls">
+                            {{ form.years_of_experience }}
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="icon-ok"></i> Enregistrer</button>
+                        <a href="{% url 'surgical_tracker:surgeon_list' %}" class="btn"><i class="icon-remove"></i> Annuler</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
